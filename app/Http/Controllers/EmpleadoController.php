@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empleado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmpleadoController extends Controller
 {
@@ -51,7 +52,8 @@ class EmpleadoController extends Controller
         Empleado::insert($datosEmpleado);
         //de esta manera nos nuestra los datos que estamos enviando en
         //formato json
-        return response()->json($datosEmpleado);
+        //return response()->json($datosEmpleado);
+        return redirect('empleado')->with('mensaje','Libro agregado con éxito');
     }
 
     /**
@@ -76,9 +78,26 @@ class EmpleadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
-        //
+        //quitar el token y el metodo
+        $datosEmpleado = request()->except(['_token','_method']);
+        //si existe una foto
+        if($request->hasFile('portada')){
+            $empleado=Empleado::findOrFail($id);
+
+            //eliminar la foto
+            Storage::delete('public/'.$empleado->portada);
+
+            //si hay fotografias alteramos el nombre de ese campo y lo insertamos en public/uploads
+            $datosEmpleado['portada']=$request->file('portada')->store('uploads','public');
+        }
+
+        //Actualizamos los datos en la base de datos
+        Empleado::where('id','=',$id)->update($datosEmpleado);
+        //recuperamos el id y se lo enviamos a la vista edit
+        $empleado=Empleado::findOrFail($id);
+        return view('empleado.edit', compact('empleado'));
     }
 
     /**
@@ -86,10 +105,26 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
-        //borramos el id de la base
-        Empleado::destroy($id);
+        $empleado=Empleado::findOrFail($id);
+        if(Storage::delete('public/'.$empleado->portada)){
+            //borramos el id de la base
+            Empleado::destroy($id);
+        }
+        
         //redireccionamos a una vista despues de hacer el borrado
-        return redirect('empleado');
+        return redirect('empleado')->with('mensaje','Registro eliminado con éxito.');
+
+    }
+    public function administrar()
+    {
+        //consultar la informacion de la base de datos en la vista index
+        //de esta manera agarramos los datos de nuestra BD
+        //La tabla de la bd se llama empleados
+        //El modelo Empleado es el que conecta con la tabla 
+        //de esta manera recupera los datos de la bd
+        $datos['empleados']=Empleado::paginate(10);
+        //pasarle los datos a la vista index
+        return view("empleado.administrar");
 
     }
 }

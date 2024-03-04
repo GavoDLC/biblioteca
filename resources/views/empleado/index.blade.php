@@ -53,14 +53,21 @@
                         Administrar Libro
                     </a>
                 </li>
+                <li>
+                    <a href="{{url('empleado/create')}}" class="btn bg-primary ">Nuevo Libro</a>
+                </li>
+                
             </ul>
+            
             <hr>
-
+            
         </div>
         <div class="b-example-divider b-example-vr"></div>
 
 
-
+        @if(Session::has('mensaje'))
+            {{Session::get('mensaje')}}
+        @endif
 
         <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 75%;">
             <table class="table table-dark table-hover mt-5">
@@ -72,6 +79,7 @@
                         <th scope="col">Fecha de publicación</th>
                         <th scope="col">Editorial</th>
                         <th scope="col">Portada</th>
+                        <th scope="col">Acciones</th>
 
                     </tr>
                 </thead>
@@ -83,10 +91,12 @@
                         <td>{{$empleado->autor}}</td>
                         <td>{{$empleado->fecha}}</td>
                         <td>{{$empleado->editorial}}</td>
-                        <td><img src="" alt="" width="50%">{{$empleado->portada}}</td>
+
+
+                        <td><img src="{{asset('storage').'/'.$empleado->portada}}" alt="" width="60%"></td>
                         <td class="">
                             <div class="container d-inline-flex">
-                                <a href="{{url('/empleado/'.$empleado->id.'/edit')}}" class="btn btn-warning">Editar</a>
+                                <a href="{{url('/empleado/'.$empleado->id.'/edit')}}" class="btn btn-warning h-5">Editar</a>
                                 <form action="{{url("/empleado/".$empleado->id)}}" method="POST">
                                     @csrf
                                     {{-- destroy utiliza el metodo delete asi que tenemos que convertirlo --}}

@@ -13,9 +13,7 @@ Use App\Http\Controllers\EmpleadoController;
 |
 */
 //esta vista accede a welcome.blade.php
-Route::get('/', function () {
-    return view('welcome');
-});
+
 /*de esta manera difinimos una vista en el navegador
 Route::get('/la ruta de nuestro archivo',function(){
     return view('ruta del archivo.nombre del archivo ');
@@ -29,4 +27,6 @@ Route::get('/la ruta de nuestro archivo',function(){
 // Route::get("/empleado/create",[EmpleadoController::class, "create"]);
 //Para acceder a todas las rutas del controlador de una manera
 //mas facil se hace de la siguiente manera.
+
+
 Route::resource("empleado",EmpleadoController::class);
