@@ -115,16 +115,4 @@ class EmpleadoController extends Controller
         return redirect('empleado')->with('mensaje','Registro eliminado con éxito.');
 
     }
-    public function administrar()
-    {
-        //consultar la informacion de la base de datos en la vista index
-        //de esta manera agarramos los datos de nuestra BD
-        //La tabla de la bd se llama empleados
-        //El modelo Empleado es el que conecta con la tabla 
-        //de esta manera recupera los datos de la bd
-        $datos['empleados']=Empleado::paginate(10);
-        //pasarle los datos a la vista index
-        return view("empleado.administrar");
-
-    }
 }

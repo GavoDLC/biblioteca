@@ -1,7 +1,8 @@
 <?php
-
+use App\Models\Empleado;
 use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\EmpleadoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +30,12 @@ Route::get('/la ruta de nuestro archivo',function(){
 //mas facil se hace de la siguiente manera.
 
 
-Route::resource("empleado",EmpleadoController::class);
+Route::get('/empleado/administrar', function () {
+
+    $datos['empleados']=Empleado::paginate(10);
+    //     //pasarle los datos a la vista index
+    //     return view("empleado.index", $datos);
+    return view("empleado.administrar", $datos);
+});
+
+Route::resource("/empleado",EmpleadoController::class);

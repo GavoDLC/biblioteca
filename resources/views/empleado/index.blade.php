@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="administrar.html" class="nav-link text-white">
+                    <a href="{{url('empleado/administrar')}}" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#speedometer2" />
                         </svg>
@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('empleado/create')}}" class="btn bg-primary ">Nuevo Libro</a>
+                    <a href="{{url('empleado/create')}}" class="btn bg-primary mt-4">Nuevo Libro</a>
                 </li>
                 
             </ul>
@@ -79,7 +79,6 @@
                         <th scope="col">Fecha de publicación</th>
                         <th scope="col">Editorial</th>
                         <th scope="col">Portada</th>
-                        <th scope="col">Acciones</th>
 
                     </tr>
                 </thead>
@@ -93,17 +92,9 @@
                         <td>{{$empleado->editorial}}</td>
 
 
-                        <td><img src="{{asset('storage').'/'.$empleado->portada}}" alt="" width="60%"></td>
+                        <td><img src="{{asset('storage').'/'.$empleado->portada}}" alt="" width="30%"></td>
                         <td class="">
-                            <div class="container d-inline-flex">
-                                <a href="{{url('/empleado/'.$empleado->id.'/edit')}}" class="btn btn-warning h-5">Editar</a>
-                                <form action="{{url("/empleado/".$empleado->id)}}" method="POST">
-                                    @csrf
-                                    {{-- destroy utiliza el metodo delete asi que tenemos que convertirlo --}}
-                                    {{method_field('DELETE')}}
-                                    <input type="submit" class="btn btn-danger" value="Eliminar" onclick="return confirm('¿Quieres borrar?')">
-                                </form>
-                            </div>
+                           
                         </td>
                     </tr>
                         

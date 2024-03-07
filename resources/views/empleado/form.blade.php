@@ -24,6 +24,6 @@
       
       <input type="file" value="" class="form-control" id="portada" name="portada">
     </div>
-    <a href="{{url('empleado/')}}" class="btn bg-danger ">Regresar</a>
+    <a href="{{url('empleado/administrar')}}" class="btn bg-danger ">Regresar</a>
 
   <button type="submit" class="btn btn-primary fs-5">Guardar</button>
