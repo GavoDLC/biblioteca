@@ -18,10 +18,13 @@
     <header>
         <nav class="navbar bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand text-white fs-2">Sistema de biblioteca.</a>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <a class="navbar-brand text-white fs-2">
+                    <img src="{{asset('storage/uploads/libreria.jpg')}}" alt="" width="50px" class="navbar-brand">
+
+                    Sistema de biblioteca.</a>
+                <form action="{{route('empleado.index')}}" class="d-flex" role="search" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="texto" value="{{$texto}}">
+                    <button class="btn btn-outline-success" type="submit" value="Buscar">Search</button>
                 </form>
             </div>
         </nav>
@@ -54,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('empleado/create')}}" class="btn bg-primary mt-4">Nuevo Libro</a>
+                    <a href="{{url('empleado/create')}}" class="btn bg-success mt-4 text-white">Nuevo Libro</a>
                 </li>
                 
             </ul>
